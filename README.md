@@ -1,2 +1,3 @@
 # Texto-a-voz
- programa donde se incerta un url y lo pasa a formato .mp3
+ La idea de este proyecto es convertir un artículo existente en un archivo de audio reproducible
+en formato mp3.
