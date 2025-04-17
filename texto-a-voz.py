@@ -1,5 +1,32 @@
+#importamos los modulos necesarios
 import pyttsx3 as py
 import time
+import urllib.request
+
+
+
+def obtener_texto():
+    texto = input(str("Introduzca el texto a convertir en voz: "))
+    return texto
+
+# Funcion para reproducir el audio
+def reproducir_audio_texto():
+    engine = py.init()
+    engine.say(obtener_texto())
+    engine.runAndWait()
+
+# Funcion para pedir una URL
+def pedir_url():
+    url = input("Ingrese una URL: ")
+    try:
+        response = urllib.request.urlopen(url)
+        contenido = response.read().decode('utf-8')
+
+        engine = py.init()
+        engine.say(contenido[:300])
+        engine.runAndWait()
+    except:
+        print("No se pudo acceder a la URL. Verifíquela e intente de nuevo.")               
 
 bucle = True
 while bucle:
@@ -15,23 +42,14 @@ while bucle:
     
     # Si la opcion es 1, convertimos un texto introducido a voz
     if opcion == "1":
-                    # Funcion para pedir el texto al usuario
-                    def obtener_texto():
-                        texto = input(str("Introduzca el texto a convertir en voz: "))
-                        return texto
+                    reproducir_audio_texto()
 
-                    # Funcion para reproducir el audio
-                    def reproducir_audio():
-                        engine.say(obtener_texto())
-                        engine.runAndWait()
+    #pedimos una URL y la transformamos a voz
+    elif opcion == "2":
+                   pedir_url()
 
-                    # Se inicia el motor de voz
-                    engine = py.init()
-
-                    # Reproducimos el audio
-                    reproducir_audio()
-
-    if opcion == "3":
+    #opcion para salir del programa
+    elif opcion == "3":
                     print("Cerrando el programa")
                     time.sleep(1)
                     print("Adios!")
