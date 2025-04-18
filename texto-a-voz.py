@@ -1,7 +1,7 @@
 # Importamos los modulos necesarios
 import pyttsx3 as py
 import time
-import urllib.request
+from newspaper import Article
 
 # Funcion para pedir el texto 
 def obtener_texto():
@@ -18,9 +18,11 @@ def reproducir_audio(texto):
 def pedir_url():
     url = input("Ingrese una URL: ")
     try: # Verificamos la url
-        response = urllib.request.urlopen(url)
-        contenido = response.read().decode('utf-8')
-        return contenido
+        articulo= Article(url)
+        articulo.download()
+        articulo.parse()
+
+        return f"Título: {articulo.title}. {articulo.text}"
         
     except: # Si no es valida mostramos este mensaje
         print("No se pudo acceder a la URL. Verifíquela e intente de nuevo.")               
@@ -49,7 +51,12 @@ while bucle: # Inicializamos el programa y pedimos que elijan una opcion.
     elif opcion == "3":
                     print("Cerrando el programa")
                     time.sleep(1)
+                    reproducir_audio("Cerrando programa, hasta luego!")
                     print("Adios!")
                     bucle = False
+
+    else:  
+          print("ingrese una opcion valida")
+                       
                     
            
