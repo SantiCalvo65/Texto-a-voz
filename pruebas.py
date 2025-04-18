@@ -1,4 +1,3 @@
-# Importamos los modulos necesarios
 import pyttsx3 as py
 import time
 import urllib.request
@@ -51,5 +50,5 @@ while bucle: # Inicializamos el programa y pedimos que elijan una opcion.
                     time.sleep(1)
                     print("Adios!")
                     bucle = False
-                    
-           
+
+
