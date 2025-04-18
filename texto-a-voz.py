@@ -4,32 +4,30 @@ import time
 import urllib.request
 
 
-
+#Funcion para pedir el texto 
 def obtener_texto():
     texto = input(str("Introduzca el texto a convertir en voz: "))
-    return texto
+    reproducir_audio(texto)
 
 # Funcion para reproducir el audio
-def reproducir_audio_texto():
+def reproducir_audio(texto):
     engine = py.init()
-    engine.say(obtener_texto())
+    engine.say(texto)
     engine.runAndWait()
 
 # Funcion para pedir una URL
 def pedir_url():
     url = input("Ingrese una URL: ")
-    try:
+    try: #verificamos la url
         response = urllib.request.urlopen(url)
         contenido = response.read().decode('utf-8')
-
-        engine = py.init()
-        engine.say(contenido[:300])
-        engine.runAndWait()
-    except:
+        reproducir_audio(contenido[:300])
+        
+    except: # si no es valida mostramos este mensaje
         print("No se pudo acceder a la URL. Verifíquela e intente de nuevo.")               
 
 bucle = True
-while bucle:
+while bucle: #inicializamos el programa y pedimos que elijan una opcion.
     print(
             "Bienvenido al programa Texto_a_voz \n" \
             "1. Convertir un texto a voz.\n" \
@@ -42,7 +40,7 @@ while bucle:
     
     # Si la opcion es 1, convertimos un texto introducido a voz
     if opcion == "1":
-                    reproducir_audio_texto()
+                    obtener_texto()
 
     #pedimos una URL y la transformamos a voz
     elif opcion == "2":
