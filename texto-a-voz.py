@@ -2,6 +2,7 @@
 import pyttsx3 as py
 import time
 from newspaper import Article
+import requests 
 
 # Funcion para pedir el texto 
 def obtener_texto():
@@ -18,14 +19,17 @@ def reproducir_audio(texto):
 def pedir_url():
     url = input("Ingrese una URL: ")
     try: # Verificamos la url
+        response = requests.get(url)
+        response.raise_for_status()
+
         articulo= Article(url)
         articulo.download()
         articulo.parse()
 
         return f"Título: {articulo.title}. {articulo.text}"
         
-    except: # Si no es valida mostramos este mensaje
-        print("No se pudo acceder a la URL. Verifíquela e intente de nuevo.")               
+    except requests.exceptions.RequestException as e: # Si no es valida mostramos este mensaje
+        print(f"No se pudo acceder a la URL. Verifíquela e intente de nuevo. {e}")               
 
 bucle = True
 while bucle: # Inicializamos el programa y pedimos que elijan una opcion.
