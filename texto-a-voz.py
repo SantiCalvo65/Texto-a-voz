@@ -7,6 +7,11 @@ import requests
 # Funcion para pedir el texto 
 def obtener_texto():
     texto = input(str("Introduzca el texto a convertir en voz: "))
+   
+    if not texto:  # Si no se ingresa un texto
+        print("No se ha registrado un texto. Por favor ingrese un texto. ")
+        return None  # Devuelve None si no se ingresa texto
+    
     return texto
 
 # Funcion para reproducir el audio
@@ -19,7 +24,7 @@ def reproducir_audio(texto):
 def pedir_url():
     url = input("Ingrese una URL: ")
     try: # Verificamos la url
-        response = requests.get(url)
+        response = requests.get(url) #Se verifica que la url sea accesible.
         response.raise_for_status()
 
         articulo= Article(url)
